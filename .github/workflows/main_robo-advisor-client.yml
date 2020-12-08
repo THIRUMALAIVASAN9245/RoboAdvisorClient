@@ -1,33 +1,33 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - robo-advisor-client
-
+name: Deploy to Azure
 on:
   push:
     branches:
-      - main
+      - master
+env:
+  AZURE_WEBAPP_NAME: robo-advisor-client
+  AZURE_WEBAPP_PACKAGE_PATH: './dist/robo-adviser-app'
+  NODE_VERSION: '10.x'
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@master
-
-    - name: Set up Node.js version
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
       with:
-        node-version: '10.*'
-
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run build
-    - name: 'Deploy to Azure Web App'
-      uses: azure/webapps-deploy@v2
+        node-version: ${{ env.NODE_VERSION }}
+    - name: Install dependencies
+      run: npm install
+    - name: Build
+      run: npm run build -- --prod
+    - name: 'Deploy to Azure WebApp'
+      uses: azure/webapps-deploy@v1
       with:
-        app-name: 'robo-advisor-client'
-        slot-name: 'production'
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_12e11993183047b8bf7f2c413a4a4901 }}
-        package: ./dist/robo-adviser-app
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
