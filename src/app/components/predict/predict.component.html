@@ -1,0 +1,120 @@
+titlet<h2 style="color: white !important;">Predict Policy Profiletype</h2>
+<p style="color: white !important;">Enter client info and check the result.</p>
+<br><br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <form #RoboAdviserForm="ngForm">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label style="color: white !important;" for="location">Location: </label>
+              <select class="form-control" [(ngModel)]="RoboAdviser.location" name="location">
+                <option *ngFor="let isl of locations">{{isl}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label style="color: white !important;" for="age">Age :</label>
+              <input type="text" class="form-control" id="age" [(ngModel)]="RoboAdviser.age" name="age">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label style="color: white !important;" for="smoker">Smoker :</label>
+              <select class="form-control" name="smoker" [(ngModel)]="RoboAdviser.smoker" 
+              (change)="onSelect($event)">
+                <option disabled value='null'>-- Select One --</option>
+                <option *ngFor="let smoker of smokers" [value]="smoker.id">{{smoker.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label style="color: white !important;" for="familyMembers">Family Members:</label>
+              <input type="text" class="form-control" id="familyMembers" [(ngModel)]="RoboAdviser.familyMembers"
+                name="familyMembers">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label style="color: white !important;" for="salary">Salary :</label>
+              <input type="text" class="form-control" id="salary" [(ngModel)]="RoboAdviser.salary" name="salary">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label style="color: white !important;" for="sex">Sex: </label>
+              <select class="form-control" [(ngModel)]="RoboAdviser.sex" name="sex">
+                <option disabled value='null'>-- Select One --</option>
+                <option *ngFor="let sex of sexes">{{sex}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="card-container">
+          <a class="card" target="_blank" rel="noopener" (click)="onPredict()">
+            <span style="color: aliceblue;">Predict</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div style="color: white !important;" class="card-container">
+          <p style="padding-top: 15px;">Matching Profile : <b>{{prediction}}</b></p>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-6"><br>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive text-nowrap table-content">
+        <p style="font-weight: bold;margin-bottom: 5px; color: white;">Trained Data</p>
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr style="background-color: #623073;color: #fff;">
+              <th style="width: 12%;" class="text-center">profileType</th>
+              <th style="width: 15%;" class="text-center">location</th>
+              <th style="width: 12%;" class="text-center">age</th>
+              <th style="width: 12%;" class="text-center">sex</th>
+              <th style="width: 12%;" class="text-center">smoker</th>
+              <th style="width: 10%;" class="text-center">familyMembers</th>
+              <th style="width: 12%;" class="text-center">salary</th>
+            </tr>
+          </thead>
+          <tbody style="background-color: #b6b0af;">
+            <tr *ngFor="let trainedData of availableTrainedData; let i= index">
+              <td class="text-center">{{trainedData.profileType}}</td>
+              <td>{{trainedData.location}}</td>
+              <td>{{trainedData.age}}</td>
+              <td>{{trainedData.sex}}</td>
+              <td>{{trainedData.smoker}}</td>
+              <td>{{trainedData.familyMembers}}</td>
+              <td>{{trainedData.salary}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
