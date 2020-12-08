@@ -30,4 +30,4 @@ jobs:
         app-name: 'robo-advisor-client'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_12e11993183047b8bf7f2c413a4a4901 }}
-        package: .
+        package: ./dist/robo-adviser-app
